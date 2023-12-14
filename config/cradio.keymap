@@ -25,9 +25,9 @@
             label = "hold_tap";
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <120>;
-            quick-tap-ms = <80>;
+            flavor = "balanced";
+            tapping-term-ms = <140>;
+            quick-tap-ms = <100>;
             global-quick-tap;
             bindings = <&kp>, <&kp>;
         };
@@ -55,10 +55,20 @@
             key-positions = <10 19>;
             bindings = <&caps_word>;
         };
+        combo_prev_word {
+            timeout-ms = <40>;
+            key-positions = <20 29>;
+            bindings = <&kp LC(LEFT)>;
+        };
+        combo_next_word {
+            timeout-ms = <40>;
+            key-positions = <21 28>;
+            bindings = <&kp LC(RIGHT)>;
+        };
         combo_ble {
             timeout-ms = <40>;
             key-positions = <0 9>;
-            bindings = <&out OUT_BLE>;
+            bindings = <&out OUT_TOG>;
         };
     };
 
@@ -66,7 +76,7 @@
         compatible = "zmk,keymap";
         default_layer {
             bindings = <
-            &kp Q      &kp W      &kp F      &kp P      &kp G          &kp J      &kp L      &kp U      &kp Y      &kp APOS
+            &kp Q      &kp W      &kp F      &kp P      &kp G          &kp J      &kp L      &kp U      &kp Y      &kp SEMI
             LHRM(A,        R,         S,         T,         D)         RHRM(H,        N,         E,         I,         O)
             &kp Z      &kp X      &kp C      &kp V      &kp B          &kp K      &kp M      &kp COMMA  &kp DOT    &kp FSLH
                             &lt SPL_RIGHT SPACE  &lt UTIL TAB          &ht RALT ENTER  &lt SPL_LEFT BSPC
@@ -75,8 +85,8 @@
 
         spl_left_layer {
             bindings = <
-            &kp TILDE  &kp HASH   &kp AT     &kp EXCL   &kp PLUS       &trans     &kp LBRC   &kp RBRC   &kp COLON  &trans
-            &kp GRAVE  &kp CARET  &kp PRCNT  &kp DLLR   &kp EQUAL      &kp PG_UP  &kp LPAR   &kp RPAR   &kp SEMI   &trans
+            &kp TILDE  &kp HASH   &kp AT     &kp EXCL   &kp PLUS       &trans     &kp LBRC   &kp RBRC   &kp DQT    &trans
+            &kp GRAVE  &kp CARET  &kp PRCNT  &kp DLLR   &kp EQUAL      &kp PG_UP  &kp LPAR   &kp RPAR   &kp SQT    &trans
             &trans     &kp PIPE   &kp STAR   &kp AMPS   &kp BSLH       &kp PG_DN  &kp LBKT   &kp RBKT   &trans     &trans
                                              &trans     &trans         &trans     &trans
             >;
@@ -85,8 +95,8 @@
         spl_right_layer {
             bindings = <
             &trans     &kp HOME   &trans     &kp END    &trans          &trans     &kp N1     &kp N2     &kp N3     &trans
-            &trans     &kp LARW   &kp UARW   &kp RARW   &kp PG_UP       &kp PSCRN  &kp N4     &kp N5     &kp N6     &kp N0
-            &trans     &trans     &kp DARW   &trans     &kp PG_DN       &kp INS    &kp N7     &kp N8     &kp N9     &trans
+            &trans     &kp LEFT   &kp UP     &kp RIGHT  &kp PG_UP       &kp PSCRN  &kp N4     &kp N5     &kp N6     &kp N0
+            &trans     &trans     &kp DOWN   &trans     &kp PG_DN       &kp INS    &kp N7     &kp N8     &kp N9     &trans
                                              &trans     &trans          &trans     &kp DEL
             >;
         };
