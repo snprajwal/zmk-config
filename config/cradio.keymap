@@ -9,9 +9,9 @@
 // Home row mods macro
 #define LHYP LG(LA(LS(LCTRL)))
 #define RHYP RG(RA(RS(RCTRL)))
-#define LHRM(k1,k2,k3,k4,k5) &ht LSHFT k1  &ht LALT k2  &ht LGUI k3  &ht LCTRL k4  &ht LHYP k5
+#define LHRM(k1,k2,k3,k4,k5) &mt LSHFT k1  &mt LALT k2  &mt LGUI k3  &mt LCTRL k4  &mt LHYP k5
 // The right hand mod uses LALT as RALT is interpreted as ISO level 3 shift
-#define RHRM(k1,k2,k3,k4,k5) &ht RHYP k1  &ht RCTRL k2  &ht RGUI k3  &ht LALT k4  &ht RSHFT k5
+#define RHRM(k1,k2,k3,k4,k5) &mt RHYP k1  &mt RCTRL k2  &mt RGUI k3  &mt LALT k4  &mt RSHFT k5
 
 // Layers
 #define COLEMAK 0
@@ -19,20 +19,19 @@
 #define SPL_RIGHT 2
 #define UTIL 3
 
-/ {
-    behaviors {
-        ht: hold_tap {
-            label = "hold_tap";
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <140>;
-            quick-tap-ms = <100>;
-            global-quick-tap;
-            bindings = <&kp>, <&kp>;
-        };
-    };
+// Behaviour
+#define BEHAVIOUR(b) &b {\
+    flavor = "balanced";\
+    tapping-term-ms = <140>;\
+    quick-tap-ms = <100>;\
+    global-quick-tap;\
+}
 
+BEHAVIOUR(lt);
+BEHAVIOUR(mt);
+
+// ZMK specific config, parsed differently from regular C
+/ {
     combos {
         compatible = "zmk,combos";
         combo_esc {
@@ -79,24 +78,24 @@
             &kp Q      &kp W      &kp F      &kp P      &kp G          &kp J      &kp L      &kp U      &kp Y      &kp SEMI
             LHRM(A,        R,         S,         T,         D)         RHRM(H,        N,         E,         I,         O)
             &kp Z      &kp X      &kp C      &kp V      &kp B          &kp K      &kp M      &kp COMMA  &kp DOT    &kp FSLH
-                            &lt SPL_RIGHT SPACE  &lt UTIL TAB          &ht RALT ENTER  &lt SPL_LEFT BSPC
+                            &lt SPL_RIGHT SPACE  &lt UTIL TAB          &mt RALT ENTER  &lt SPL_LEFT BSPC
             >;
         };
 
         spl_left_layer {
             bindings = <
-            &kp TILDE  &kp HASH   &kp AT     &kp EXCL   &kp PLUS       &trans     &kp LBRC   &kp RBRC   &kp DQT    &trans
-            &kp GRAVE  &kp CARET  &kp PRCNT  &kp DLLR   &kp EQUAL      &kp PG_UP  &kp LPAR   &kp RPAR   &kp SQT    &trans
-            &trans     &kp PIPE   &kp STAR   &kp AMPS   &kp BSLH       &kp PG_DN  &kp LBKT   &kp RBKT   &trans     &trans
+            &kp TILDE  &kp HASH   &kp AT     &kp EXCL   &kp PLUS       &trans     &kp N1     &kp N2     &kp N3     &trans
+            &kp GRAVE  &kp CARET  &kp PRCNT  &kp DLLR   &kp EQUAL      &kp PG_UP  &kp N4     &kp N5     &kp N6     &kp N0
+            &trans     &kp PIPE   &kp STAR   &kp AMPS   &kp BSLH       &kp PG_DN  &kp N7     &kp N8     &kp N9     &trans
                                              &trans     &trans         &trans     &trans
             >;
         };
 
         spl_right_layer {
             bindings = <
-            &trans     &kp HOME   &trans     &kp END    &trans          &trans     &kp N1     &kp N2     &kp N3     &trans
-            &trans     &kp LEFT   &kp UP     &kp RIGHT  &kp PG_UP       &kp PSCRN  &kp N4     &kp N5     &kp N6     &kp N0
-            &trans     &trans     &kp DOWN   &trans     &kp PG_DN       &kp INS    &kp N7     &kp N8     &kp N9     &trans
+            &trans     &kp HOME   &trans     &kp END    &trans          &trans     &kp LBRC   &kp RBRC   &kp DQT    &trans
+            &trans     &kp LEFT   &kp UP     &kp RIGHT  &kp PG_UP       &kp PSCRN  &kp LPAR   &kp RPAR   &kp SQT    &trans
+            &trans     &trans     &kp DOWN   &trans     &kp PG_DN       &kp INS    &kp LBKT   &kp RBKT   &trans     &trans
                                              &trans     &trans          &trans     &kp DEL
             >;
         };
